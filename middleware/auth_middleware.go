@@ -3,6 +3,7 @@ package middleware
 import (
 	"belajar_golang_restful_api/helper"
 	"belajar_golang_restful_api/model/web"
+	"fmt"
 	"net/http"
 )
 
@@ -17,6 +18,9 @@ func NewAuthMiddleware(handler http.Handler) *AuthMiddleware {
 func (authMiddleware *AuthMiddleware) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
 	config, err := helper.LoadConfigNew(".")
 	helper.PanicIfError(err)
+
+	fmt.Println(request.Header.Get("X-API-KEY"))
+	fmt.Println(config)
 
 	if request.Header.Get("X-API-KEY") == config.X_API_KEY {
 		authMiddleware.Handler.ServeHTTP(writer, request)
