@@ -1,0 +1,7 @@
+#!/bin/sh
+echo "Running pre-commit hook: go test ./..."
+go test ./...
+if [ $? -ne 0 ]; then
+ echo "Tests failed! Aborting commit."
+ exit 1
+fi

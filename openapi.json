@@ -1,0 +1,265 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Belajar Golang RESTful API",
+    "description": "Dokumentasi API untuk project Belajar Golang RESTful API.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api"
+    }
+  ],
+  "paths": {
+    "/categories": {
+       "get": {
+         "security": [
+            {
+              "CategoriesAuth": []
+            }
+         ],
+         "description": "Get all categories",
+         "tags": ["Categories API"],
+         "summary": "Get all categories",
+         "responses": {
+           "200": {
+             "description": "Success get all categories",
+             "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "number"
+                      },
+                      "status": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/Categories"
+                        }
+                      }
+                    }
+                  }
+                }
+             }
+           }
+         }
+       },
+       "post": {
+        "security": [
+            {
+              "CategoriesAuth": []
+            }
+         ],
+         "description": "Create new category",
+         "tags": ["Categories API"],
+         "summary": "Create new category",
+         "requestBody": {
+           "required": true,
+           "content": {
+             "application/json": {
+               "schema": {
+                 "$ref": "#/components/schemas/CreateOrUpdateCategory"
+               }
+             }
+           }
+         },
+         "responses": {
+           "200": {
+             "description": "Success create new category",
+             "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "number"
+                      },
+                      "status": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "$ref": "#/components/schemas/Categories"
+                      }
+                    }
+                  }
+                }
+             }
+           }
+         }
+       }
+    },
+    "/categories/{categoryId}": {
+      "get": {
+        "security": [
+            {
+              "CategoriesAuth": []
+            }
+        ],
+        "description": "Get category by id",
+        "tags": ["Categories API"],
+        "summary": "Get category by id",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get category by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Categories"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+            {
+              "CategoriesAuth": []
+            }
+        ],
+        "description": "Update category by id",
+        "tags": ["Categories API"],
+        "summary": "Update category by id",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+           "required": true,
+           "content": {
+             "application/json": {
+               "schema": {
+                 "$ref": "#/components/schemas/CreateOrUpdateCategory"
+               }
+             }
+           }
+         },
+        "responses": {
+          "200": {
+            "description": "Success update category by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Categories"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+            {
+              "CategoriesAuth": []
+            }
+        ],
+        "description": "Delete category by id",
+        "tags": ["Categories API"],
+        "summary": "Delete category by id",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success delete category by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "CategoriesAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key",
+        "description": "Categories API Key"
+      }
+    },
+    "schemas": {
+        "CreateOrUpdateCategory": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "Categories": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+  }
+}

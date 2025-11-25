@@ -1,0 +1,41 @@
+## Find All Categories
+GET http://localhost:8080/api/categories?page=1&size=2
+X-API-KEY: adjis_ganteng_banget
+Accept: application/json
+
+###
+
+## Find Category By ID
+GET http://localhost:8080/api/categories/0
+Accept: application/json
+X-API-KEY: adjis_ganteng_banget
+
+###
+
+## Create Category
+POST http://localhost:8080/api/categories
+Accept: application/json
+Content-Type: application/json
+X-API-KEY: adjis_ganteng_banget
+
+{
+    "name": "Category 44"
+}
+
+###
+
+## Update Category
+PUT http://localhost:8080/api/categories/1
+Accept: application/json
+Content-Type: application/json
+
+{
+    "name": "Category 1 asik"
+}
+
+###
+
+## Delete Category
+DELETE http://localhost:8080/api/categories/0
+Accept: application/json
+X-API-KEY: adjis_ganteng_banget
