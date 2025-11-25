@@ -40,6 +40,13 @@ func LoadConfigNew(path string) (config Config, err error) {
 
 	viper.AutomaticEnv()
 
+	viper.BindEnv("DB_USER")
+	viper.BindEnv("DB_PASSWORD")
+	viper.BindEnv("DB_HOST")
+	viper.BindEnv("DB_PORT")
+	viper.BindEnv("DB_NAME")
+	viper.BindEnv("X_API_KEY")
+
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_", "-", "_"))
 
 	err = viper.Unmarshal(&config)
