@@ -2,6 +2,7 @@ package helper
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/spf13/viper"
 )
@@ -38,6 +39,8 @@ func LoadConfigNew(path string) (config Config, err error) {
 	}
 
 	viper.AutomaticEnv()
+
+	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_", "-", "_"))
 
 	err = viper.Unmarshal(&config)
 	return
