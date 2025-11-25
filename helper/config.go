@@ -1,6 +1,8 @@
 package helper
 
 import (
+	"fmt"
+
 	"github.com/spf13/viper"
 )
 
@@ -30,11 +32,10 @@ func LoadConfig(path string) (config Config, err error) {
 }
 
 func LoadConfigNew(path string) (config Config, err error) {
-	viper.AddConfigPath(path)
-	viper.SetConfigName(".env")
-	viper.SetConfigType("env")
-
-	_ = viper.ReadInConfig()
+	viper.SetConfigFile(".env")
+	if err := viper.ReadInConfig(); err != nil {
+		fmt.Println("running without .env file")
+	}
 
 	viper.AutomaticEnv()
 
