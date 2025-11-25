@@ -5,6 +5,7 @@ import (
 	"belajar_golang_restful_api/controller"
 	"belajar_golang_restful_api/helper"
 	"belajar_golang_restful_api/middleware"
+	migration "belajar_golang_restful_api/migrations"
 	"belajar_golang_restful_api/repository"
 	"belajar_golang_restful_api/service"
 	"context"
@@ -24,6 +25,11 @@ func main() {
 	helper.PanicIfError(err)
 
 	db := app.NewDB(config)
+
+	if err := migration.RunMigration(db); err != nil {
+		panic(err)
+	}
+
 	validator := validator.New()
 	categoryRepository := repository.NewCategoryRepository()
 	categoryService := service.NewCategoryService(categoryRepository, db, validator)
