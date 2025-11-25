@@ -8,7 +8,7 @@ import (
 )
 
 func NewDB(configuration helper.Config) *sql.DB {
-	dataSourceName := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", configuration.DBUser, configuration.DBPassword, configuration.DBHost, configuration.DBPort, configuration.DBName)
+	dataSourceName := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", configuration.DBUser, configuration.DBPassword, configuration.DBHost, configuration.DBPort, configuration.DBName)
 	sqlDB, err := sql.Open("mysql", dataSourceName)
 	helper.PanicIfError(err)
 
