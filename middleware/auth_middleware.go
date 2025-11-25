@@ -15,7 +15,10 @@ func NewAuthMiddleware(handler http.Handler) *AuthMiddleware {
 }
 
 func (authMiddleware *AuthMiddleware) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
-	if request.Header.Get("X-API-KEY") == "adjis_ganteng_banget" {
+	config, err := helper.LoadConfig(".")
+	helper.PanicIfError(err)
+
+	if request.Header.Get("X-API-KEY") == config.X_API_KEY {
 		authMiddleware.Handler.ServeHTTP(writer, request)
 	} else {
 		writer.Header().Set("Content-Type", "application/json")
