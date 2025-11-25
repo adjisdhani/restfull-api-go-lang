@@ -15,7 +15,7 @@ func NewAuthMiddleware(handler http.Handler) *AuthMiddleware {
 }
 
 func (authMiddleware *AuthMiddleware) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
-	config, err := helper.LoadConfig(".")
+	config, err := helper.LoadConfigNew(".")
 	helper.PanicIfError(err)
 
 	if request.Header.Get("X-API-KEY") == config.X_API_KEY {

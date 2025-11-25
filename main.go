@@ -20,7 +20,7 @@ import (
 )
 
 func main() {
-	config, err := helper.LoadConfig(".")
+	config, err := helper.LoadConfigNew(".")
 	helper.PanicIfError(err)
 
 	db := app.NewDB(config)
@@ -31,8 +31,13 @@ func main() {
 
 	router := app.NewRouter(categoryController)
 
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
 	server := http.Server{
-		Addr:    "localhost:8080",
+		Addr:    ":" + port,
 		Handler: middleware.NewAuthMiddleware(router),
 	}
 

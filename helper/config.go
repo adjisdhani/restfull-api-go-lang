@@ -28,3 +28,16 @@ func LoadConfig(path string) (config Config, err error) {
 	err = viper.Unmarshal(&config)
 	return
 }
+
+func LoadConfigNew(path string) (config Config, err error) {
+	viper.AddConfigPath(path)
+	viper.SetConfigName(".env")
+	viper.SetConfigType("env")
+
+	_ = viper.ReadInConfig()
+
+	viper.AutomaticEnv()
+
+	err = viper.Unmarshal(&config)
+	return
+}
